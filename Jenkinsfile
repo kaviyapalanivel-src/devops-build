@@ -1,19 +1,5 @@
-pipeline {
-    agent any
 
-    environment {
-        DOCKER_IMAGE = "kaviyapalaniveel/react-app"
-    }
-
-    stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'dev', url: 'https://github.com/kaviyapalanivel-src/devops-build.git'
-            }
-        }
-
-        stage('Build and Push Image') {
-            steps {
+<<<<<<< HEAD
                 script {
                     // Build Docker image
                     def dockerImage = docker.build("${DOCKER_IMAGE}")
@@ -22,17 +8,14 @@ pipeline {
                     withDockerRegistry(credentialsId: 'dockerhub_creds', url: 'https://index.docker.io/v1/') {
                         dockerImage.push()
                     }
-                }
+=======
+                sh 'docker build -t $DOCKER_IMAGE .'
             }
         }
-    }
 
-    post {
-        success {
-            echo "Docker image ${DOCKER_IMAGE} pushed successfully!"
-        }
-        failure {
-            echo "Pipeline failed. Check logs for details."
-        }
-    }
-}
+        stage('Push Image') {
+            steps {
+                withDockerRegistry(credentialsId: 'dockerhub_creds') {
+                    sh 'docker push $DOCKER_IMAGE'
+>>>>>>> 7ab8ca8
+              
