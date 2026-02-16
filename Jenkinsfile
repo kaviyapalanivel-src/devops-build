@@ -2,42 +2,31 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_USER = "kaviyapalaniveel"
-        DEV_REPO = "dev"
-        PROD_REPO = "prod"
+        DOCKER_IMAGE = "kaviyapalaniveel/react-app"
     }
 
     stages {
 
+        stage('Checkout') {
+            steps {
+                git branch: 'dev', url: 'https://github.com/kaviyapalanivel-src/devops-build.git'
+            }
+        }
+
         stage('Build Image') {
             steps {
-                script {
-                    docker.build("${DOCKER_USER}/react-app")
-                }
+                sh 'docker build -t $DOCKER_IMAGE .'
             }
         }
 
         stage('Push Image') {
             steps {
-                script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-creds') {
-
-                        // If pushed to dev branch
-                        if (env.BRANCH_NAME == 'dev') {
-                            docker.image("${DOCKER_USER}/react-app")
-                                .push("${DEV_REPO}")
-                        }
-
-                        // If merged to main branch (production)
-                        if (env.BRANCH_NAME == 'main') {
-                            docker.image("${DOCKER_USER}/react-app")
-                                .push("${PROD_REPO}")
-                        }
-
-                    }
+                withDockerRegistry(credentialsId: 'dockerhub_creds', toolName: 'docker') {
+                    sh 'docker push $DOCKER_IMAGE'
                 }
             }
         }
+
     }
 }
 
