@@ -17,17 +17,19 @@ pipeline {
             }
         }
 
-        stage('Push to Docker Hub') {
+        stage('Push Image') {
             steps {
                 script {
-                    docker.withRegistry('', 'dockerhub-creds') {
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-creds') {
 
+                        // If pushed to dev branch
                         if (env.BRANCH_NAME == 'dev') {
                             docker.image("${DOCKER_USER}/react-app")
                                 .push("${DEV_REPO}")
                         }
 
-                        if (env.BRANCH_NAME == 'master') {
+                        // If merged to main branch (production)
+                        if (env.BRANCH_NAME == 'main') {
                             docker.image("${DOCKER_USER}/react-app")
                                 .push("${PROD_REPO}")
                         }
