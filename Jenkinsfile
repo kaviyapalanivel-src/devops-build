@@ -15,14 +15,14 @@ pipeline {
 
         stage('Build Image') {
             steps {
-                sh 'docker build -t $DOCKER_IMAGE .'
+                sh "docker build -t ${DOCKER_IMAGE} ."
             }
         }
 
         stage('Push Image') {
             steps {
-                withDockerRegistry(credentialsId: 'dockerhub_creds') {
-                    sh 'docker push $DOCKER_IMAGE'
+                withDockerRegistry(credentialsId: 'dockerhub_creds', url: 'https://index.docker.io/v1/') {
+                    sh "docker push ${DOCKER_IMAGE}"
                 }
             }
         }
