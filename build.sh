@@ -1,11 +1,7 @@
-echo "Building Docker Image..."
+#!/bin/bash
 
-docker build -t react-app:latest .
+echo "Building Docker image..."
 
-echo "Tagging image for DockerHub DEV repo..."
+docker build -t react-prod-app .
 
-docker tag react-app:latest kaviyapalaniveel/dev:latest
-
-echo "Pushing image to DockerHub DEV repo..."
-
-docker push kaviyapalaniveel/dev:latest
+echo "Build completed ✅"

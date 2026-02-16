@@ -1,9 +1,8 @@
-
-version: "3"
+version: "3.8"
 
 services:
   react-app:
-    image: kaviyapalaniveel/dev:latest
+    image: react-prod-app
     container_name: react-container
     ports:
       - "80:80"

@@ -1,10 +1,15 @@
 #!/bin/bash
 
-echo "Stopping old container..."
+echo "Stopping old container (if exists)..."
 
-docker stop react-container || true
-docker rm react-container || true
+docker stop react-container 2>/dev/null
+docker rm react-container 2>/dev/null
 
-echo "Running new container..."
+echo "Deploying new container..."
 
-docker run -d -p 80:80 --name react-container react-app:latest
+docker run -d \
+  --name react-container \
+  -p 80:80 \
+  react-prod-app
+
+echo "Deployment completed ✅"
