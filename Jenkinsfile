@@ -15,17 +15,31 @@ pipeline {
 
         stage('Build Image') {
             steps {
-                sh "docker build -t ${DOCKER_IMAGE} ."
+                script {
+                    dockerImage = docker.build("${DOCKER_IMAGE}")
+                }
             }
         }
 
         stage('Push Image') {
             steps {
-                withDockerRegistry(credentialsId: 'dockerhub_creds', url: 'https://index.docker.io/v1/') {
-                    sh "docker push ${DOCKER_IMAGE}"
+                script {
+                    // securely log in and push image using Jenkins credentials
+                    withDockerRegistry(credentialsId: 'dockerhub_creds', url: 'https://index.docker.io/v1/') {
+                        dockerImage.push()
+                    }
                 }
             }
         }
 
+    }
+
+    post {
+        success {
+            echo "Docker image ${DOCKER_IMAGE} pushed successfully!"
+        }
+        failure {
+            echo "Pipeline failed. Check logs for details."
+        }
     }
 }
