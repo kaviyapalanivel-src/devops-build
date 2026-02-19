@@ -1,149 +1,154 @@
-# 🚀 React App – DevOps CI/CD Deployment (Jenkins + Docker + AWS EC2)
+🚀 Project Title
 
-## 📌 Project Overview
+Production-Ready React Application Deployment using DevOps CI/CD Pipeline with Monitoring
 
-This project demonstrates a complete **DevOps CI/CD pipeline** for deploying a React application into a production‑ready environment using modern DevOps tools and practices.
+📌 Project Overview
 
-The pipeline automates:
+This project demonstrates an end-to-end DevOps workflow to deploy a production-ready React application using containerization, CI/CD automation, cloud deployment, and monitoring. The application is Dockerized and deployed on an AWS EC2 instance, with Jenkins automating build, push, and deployment processes based on branch triggers. Separate Docker Hub repositories are maintained for development and production images. Infrastructure security is configured using AWS Security Groups. Monitoring is implemented using Prometheus, Node Exporter, and Grafana to track application health and server metrics, with alerts configured for downtime scenarios.
 
-* Source code build
-* Docker image creation
-* Image push to Docker Hub
-* Deployment on AWS EC2 server
+🧱 Architecture Flow
+Developer → GitHub (dev branch) → Jenkins CI
+→ Docker Build → Push to DockerHub (dev)
 
----
+Merge dev → main → Jenkins CI/CD
+→ Docker Build → Push to DockerHub (prod)
+→ Deploy to AWS EC2 → Monitoring
 
-## 🧰 Technologies & Tools Used
+⚙️ Steps Performed
+1️⃣ Application Setup
 
-### ⚙️ DevOps Tools
+Cloned React application repository
 
-* Git & GitHub (Version Control)
-* Jenkins (CI/CD Automation)
-* Docker (Containerization)
-* Docker Hub (Image Repository)
-* AWS EC2 (Deployment Server)
-* Bash Scripting (Automation)
+Built application for production
 
-### ☁️ Architect Diagram
+Configured to run on Port 80 (HTTP)
 
-<img width="1536" height="1024" alt="ChatGPT Image Feb 19, 2026, 01_44_18 PM" src="https://github.com/user-attachments/assets/4acb6e00-0d2a-4123-882d-7b424cdb0ded" />
+git clone https://github.com/kaviyapalanivel-src/devops-build
+cd devops-build
 
----
+2️⃣ Dockerization
+Created Dockerfile
 
+Multi-stage build for optimized image
 
-## 🔄 CI/CD Workflow
+Nginx used to serve production build
 
-1. Developer pushes code to **dev branch** in GitHub
-2. Jenkins pipeline triggers automatically
-3. Jenkins builds Docker image
-4. Image pushed to Docker Hub
-5. Jenkins connects to EC2 server
-6. Container deployed on port 80 (HTTP)
+Docker Compose
 
----
+Container orchestration for deployment
 
-## 🐳 Docker Configuration
+3️⃣ Bash Automation Scripts
+build.sh
 
-### Dockerfile
+Builds Docker image
 
-* Uses Node image
-* Builds React app
-* Serves app using Nginx
+deploy.sh
 
-### docker-compose.yml
+Runs container on EC2
 
-* Runs container in detached mode
-* Maps port 80:80
+4️⃣ Version Control (Git CLI)
 
----
+Code pushed to dev branch
 
-## 🧪 Jenkins Pipeline Stages
+Used .gitignore and .dockerignore
 
-### Stage 1 — Checkout Code
+Feature → dev → main workflow followed
 
-Pull latest code from GitHub dev branch
+5️⃣ Docker Hub Repositories
 
-### Stage 2 — Build Docker Image
+Created two repositories:
 
-```
-docker build -t react-app .
-```
+Repo	Visibility	Purpose
+dev	Public	Development builds
+prod	Private	Production builds
+6️⃣ Jenkins CI/CD Pipeline
 
-### Stage 3 — Push to Docker Hub
+Configured Jenkins to:
 
-```
-docker tag react-app kaviyapalaniveel/react-app:latest
-docker push kaviyapalaniveel/react-app:latest
-```
+✔ Connect to GitHub repository
+✔ Auto-trigger builds
 
-### Stage 4 — Deploy to EC2
+Branch Logic
+🔹 If code pushed to dev branch:
 
-```
-docker pull kaviyapalaniveel/react-app:latest
-docker run -d -p 80:80 kaviyapalaniveele/react-app:latest
+Build Docker image
 
+Push to Docker Hub dev repo
 
+🔹 If dev merged to main:
 
-```
-<img width="884" height="411" alt="image" src="https://github.com/user-attachments/assets/1455eecb-8cce-4728-bba3-4eb16c509f2f" />
----
+Build production image
 
-## 🖥️ Deployment Steps (Manual)
+Push to Docker Hub prod repo
 
-### Step 1 — Connect to EC2
+Deploy to EC2 server
 
-```
+7️⃣ AWS Deployment
+EC2 Setup
 
-### Step 2 — Install Docker
+Instance type: t2.micro
 
-```
-sudo apt update
-sudo apt install docker.io -y
-sudo systemctl start docker
-sudo systemctl enable docker
-```
+OS: Linux
 
-### Step 3 — Run Container
+Security Group Rules
+Port	Access
+80	Public (Application access)
+22	My IP only (SSH access)
+📊 Monitoring Setup
 
-```
-docker run -d -p 80:80 react-app:latest
-```
+Monitoring implemented using open-source tools:
 
----
+🔹 Prometheus
 
-## 📜 Bash Scripts
+Collects application and server metrics
 
-### build.sh
+🔹 Node Exporter
 
-Script to build Docker image
+Provides system metrics (CPU, Memory, Disk)
 
-### deploy.sh
+🔹 Grafana
 
-Script to deploy container to server
+Visualizes metrics using dashboards
 
----
-<img width="884" height="406" alt="image" src="https://github.com/user-attachments/assets/5b315dc1-49d8-4568-a2d9-b4cf47eaf8f8" />
-## 🔐 Credentials & Security
+🛠 Monitoring Installation via Scripts
 
-* Docker Hub credentials stored in Jenkins
-* SSH key used for EC2 access
-* Sensitive data managed via Jenkins Credentials Manager
+Monitoring components installed using custom scripts:
 
----
+prometheus.sh
 
-## ✅ Result
+node_exporter.sh
 
-The React application is successfully deployed and accessible ,
-```
+grafana.sh
 
----
+Execution Steps
+chmod +x prometheus.sh node_exporter.sh grafana.sh
 
-## 📈 Advanced Improvements (Future Scope)
+./prometheus.sh
+./node_exporter.sh
+./grafana.sh
 
-* Use Kubernetes for orchestration
-* Implement Monitoring (Prometheus + Grafana)
-* Add HTTPS using Nginx + SSL
-* Auto scaling using AWS Load Balancer
+❤️ Health Monitoring
 
----
+Prometheus configured to monitor:
 
+Application uptime
+
+Server metrics
+
+Grafana dashboards display:
+
+CPU usage
+
+Memory usage
+
+System load
+
+Application status
+
+Alerts configured to notify if application goes down.
+
+🌐 Deployment Output
+
+Application accessible via EC2 Public IP on port 80
+
+Monitoring dashboards accessible via Grafana
