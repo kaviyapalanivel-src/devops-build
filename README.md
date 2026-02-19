@@ -1,154 +1,202 @@
-🚀 Project Title
 
-Production-Ready React Application Deployment using DevOps CI/CD Pipeline with Monitoring
+# 🚀 **Production-Ready React App Deployment — DevOps CI/CD Pipeline**
 
-📌 Project Overview
+---
 
-This project demonstrates an end-to-end DevOps workflow to deploy a production-ready React application using containerization, CI/CD automation, cloud deployment, and monitoring. The application is Dockerized and deployed on an AWS EC2 instance, with Jenkins automating build, push, and deployment processes based on branch triggers. Separate Docker Hub repositories are maintained for development and production images. Infrastructure security is configured using AWS Security Groups. Monitoring is implemented using Prometheus, Node Exporter, and Grafana to track application health and server metrics, with alerts configured for downtime scenarios.
+## 📌 **Project Overview**
 
-🧱 Architecture Flow
+This project implements a complete end-to-end DevOps workflow to deploy a production-ready React application using containerization, CI/CD automation, cloud infrastructure, and monitoring. The application is Dockerized and deployed on AWS EC2, while Jenkins automates build, push, and deployment based on branch triggers. Separate Docker Hub repositories are maintained for development and production environments. Monitoring is implemented using Prometheus, Node Exporter, and Grafana to ensure system reliability and application availability.
+
+---
+
+## 🧱 **Architecture Flow**
+
+```
 Developer → GitHub (dev branch) → Jenkins CI
 → Docker Build → Push to DockerHub (dev)
 
-Merge dev → main → Jenkins CI/CD
+Merge dev → main → Jenkins CD
 → Docker Build → Push to DockerHub (prod)
 → Deploy to AWS EC2 → Monitoring
+```
 
-⚙️ Steps Performed
-1️⃣ Application Setup
+---
 
-Cloned React application repository
+## ⚙️ **Implementation Steps**
 
-Built application for production
+### 🔹 **1. Application Setup**
 
-Configured to run on Port 80 (HTTP)
+* Cloned React application repository
+* Configured production build
+* Application served on Port 80 (HTTP)
 
-git clone https://github.com/kaviyapalanivel-src/devops-build
-cd devops-build
+---
 
-2️⃣ Dockerization
-Created Dockerfile
+### 🔹 **2. Dockerization**
 
-Multi-stage build for optimized image
+**Dockerfile**
 
-Nginx used to serve production build
+* Multi-stage build
+* Nginx used for serving production files
 
-Docker Compose
+**Docker Compose**
 
-Container orchestration for deployment
+* Container orchestration for deployment
 
-3️⃣ Bash Automation Scripts
-build.sh
+---
 
-Builds Docker image
+### 🔹 **3. Automation Scripts**
 
-deploy.sh
+**build.sh**
 
-Runs container on EC2
+➡ Builds Docker image
 
-4️⃣ Version Control (Git CLI)
+**deploy.sh**
 
-Code pushed to dev branch
+➡ Deploys container to EC2 server
 
-Used .gitignore and .dockerignore
+---
 
-Feature → dev → main workflow followed
+### 🔹 **4. Version Control**
 
-5️⃣ Docker Hub Repositories
+* Git CLI used for all operations
+* Code pushed to **dev branch**
+* `.gitignore` and `.dockerignore` configured
+* Branch strategy: Feature → dev → main
 
-Created two repositories:
+---
 
-Repo	Visibility	Purpose
-dev	Public	Development builds
-prod	Private	Production builds
-6️⃣ Jenkins CI/CD Pipeline
+### 🔹 **5. Docker Hub Repositories**
+
+| Repository | Visibility | Purpose            |
+| ---------- | ---------- | ------------------ |
+| Dev Repo   | Public     | Development builds |
+| Prod Repo  | Private    | Production builds  |
+
+---
+
+### 🔹 **6. Jenkins CI/CD Pipeline**
 
 Configured Jenkins to:
 
-✔ Connect to GitHub repository
-✔ Auto-trigger builds
+✅ Connect to GitHub
+✅ Auto-trigger builds
 
-Branch Logic
-🔹 If code pushed to dev branch:
+**Dev Branch Push**
 
-Build Docker image
+➡ Build image
+➡ Push to Docker Hub (dev repo)
 
-Push to Docker Hub dev repo
+**Merge to Main**
 
-🔹 If dev merged to main:
+➡ Build production image
+➡ Push to Docker Hub (prod repo)
+➡ Deploy to EC2
 
-Build production image
+---
 
-Push to Docker Hub prod repo
+### 🔹 **7. AWS Deployment**
 
-Deploy to EC2 server
+**EC2 Configuration**
 
-7️⃣ AWS Deployment
-EC2 Setup
+* Instance type: t2.micro
+* Application accessible via Port 80
 
-Instance type: t2.micro
+**Security Group Rules**
 
-OS: Linux
+| Port | Access        |
+| ---- | ------------- |
+| 80   | Public Access |
+| 22   | My IP Only    |
+|3000  | My IP Only    |
+|9090  | My IP Only    |
+|9100  | My IP Only    |
 
-Security Group Rules
-Port	Access
-80	Public (Application access)
-22	My IP only (SSH access)
-📊 Monitoring Setup
+---
+
+## 📊 **Monitoring Setup**
 
 Monitoring implemented using open-source tools:
 
-🔹 Prometheus
+### 🔸 Prometheus
 
-Collects application and server metrics
+Collects application and system metrics
 
-🔹 Node Exporter
+### 🔸 Node Exporter
 
-Provides system metrics (CPU, Memory, Disk)
+Provides server metrics (CPU, Memory, Disk)
 
-🔹 Grafana
+### 🔸 Grafana
 
-Visualizes metrics using dashboards
+Visualizes metrics via dashboards
 
-🛠 Monitoring Installation via Scripts
+---
 
-Monitoring components installed using custom scripts:
+## 🛠 **Monitoring Installation (Scripts)**
 
-prometheus.sh
+Monitoring tools installed using:
 
-node_exporter.sh
+* `prometheus.sh`
+* `node_exporter.sh`
+* `grafana.sh`
 
-grafana.sh
-
-Execution Steps
+```
 chmod +x prometheus.sh node_exporter.sh grafana.sh
 
 ./prometheus.sh
 ./node_exporter.sh
 ./grafana.sh
+```
 
-❤️ Health Monitoring
+---
 
-Prometheus configured to monitor:
+## ❤️ **Health Monitoring**
 
-Application uptime
+Prometheus monitors:
 
-Server metrics
+✔ Application uptime
+✔ System performance
 
 Grafana dashboards display:
 
-CPU usage
+* CPU usage
+* Memory usage
+* System load
+* Application status
 
-Memory usage
+Alerts configured for downtime detection.
 
-System load
+---
 
-Application status
+## 🌐 **Deployment Output**
 
-Alerts configured to notify if application goes down.
+* Application accessible via EC2 Public IP
+* Monitoring dashboards via Grafana
 
-🌐 Deployment Output
+---
 
-Application accessible via EC2 Public IP on port 80
+## 🧠 **Tools & Technologies**
 
-Monitoring dashboards accessible via Grafana
+### 🔧 DevOps
+
+Docker • Docker Compose • Jenkins • Git • GitHub
+
+### ☁️ Cloud
+
+AWS EC2 • Security Groups
+
+### 📊 Monitoring
+
+Prometheus • Node Exporter • Grafana
+
+
+---
+
+## 🎯 **Conclusion**
+
+This project demonstrates a complete DevOps lifecycle including containerization, automated CI/CD pipelines, secure cloud deployment, and real-time monitoring. By integrating industry-standard tools and best practices, the solution ensures scalability, reliability, and production readiness.
+
+
+
+Sollu Kaviya 😎
+Namma project ah **distinction level** polish pannalam 💯
