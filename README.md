@@ -11,14 +11,9 @@ This project implements a complete end-to-end DevOps workflow to deploy a produc
 
 ## 🧱 **Architecture Flow**
 
-```
-Developer → GitHub (dev branch) → Jenkins CI
-→ Docker Build → Push to DockerHub (dev)
 
-Merge dev → main → Jenkins CD
-→ Docker Build → Push to DockerHub (prod)
-→ Deploy to AWS EC2 → Monitoring
-```
+<img width="1536" height="1024" alt="archidiagram" src="https://github.com/user-attachments/assets/e2fb97d0-73eb-47ad-be69-def44bb8fc5d" />
+
 
 ---
 
@@ -198,5 +193,5 @@ This project demonstrates a complete DevOps lifecycle including containerization
 
 
 
-Sollu Kaviya 😎
-Namma project ah **distinction level** polish pannalam 💯
+
+
