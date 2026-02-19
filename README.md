@@ -25,6 +25,7 @@ The pipeline automates:
 * Bash Scripting (Automation)
 
 ### ☁️ Architect Diagram
+
 <img width="1536" height="1024" alt="ChatGPT Image Feb 19, 2026, 01_44_18 PM" src="https://github.com/user-attachments/assets/4acb6e00-0d2a-4123-882d-7b424cdb0ded" />
 
 ---
@@ -81,10 +82,10 @@ docker push kaviyapalaniveel/react-app:latest
 docker pull kaviyapalaniveel/react-app:latest
 docker run -d -p 80:80 kaviyapalaniveele/react-app:latest
 
-<img width="884" height="411" alt="image" src="https://github.com/user-attachments/assets/1455eecb-8cce-4728-bba3-4eb16c509f2f" />
+
 
 ```
-
+<img width="884" height="411" alt="image" src="https://github.com/user-attachments/assets/1455eecb-8cce-4728-bba3-4eb16c509f2f" />
 ---
 
 ## 🖥️ Deployment Steps (Manual)
@@ -119,11 +120,9 @@ Script to build Docker image
 ### deploy.sh
 
 Script to deploy container to server
-<img width="884" height="406" alt="image" src="https://github.com/user-attachments/assets/5b315dc1-49d8-4568-a2d9-b4cf47eaf8f8" />
-
 
 ---
-
+<img width="884" height="406" alt="image" src="https://github.com/user-attachments/assets/5b315dc1-49d8-4568-a2d9-b4cf47eaf8f8" />
 ## 🔐 Credentials & Security
 
 * Docker Hub credentials stored in Jenkins
