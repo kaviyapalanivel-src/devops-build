@@ -12,7 +12,7 @@ This project implements a complete end-to-end DevOps workflow to deploy a produc
 ## 🧱 **Architecture Flow**
 
 
-<img width="1536" height="1024" alt="archidiagram" src="https://github.com/user-attachments/assets/e2fb97d0-73eb-47ad-be69-def44bb8fc5d" />
+<img width="600" height="850" alt="archidiagram" src="https://github.com/user-attachments/assets/e2fb97d0-73eb-47ad-be69-def44bb8fc5d" />
 
 
 ---
